@@ -52,10 +52,7 @@ export function NewsContainer() {
 
   return (
     <div className="space-y-8">
-      <div className="rounded-lg border bg-card/50 p-4">
-        <div className="mb-4">
-          <h3 className="text-sm font-medium text-muted-foreground">Filtros</h3>
-        </div>
+      <div>
         <NewsFilters 
           categories={Array.from(new Set(NEWS_CATEGORIES))}
           onFilterChange={handleFilterChange}

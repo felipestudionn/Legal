@@ -35,18 +35,19 @@ export function NewsFilters({ categories, onFilterChange }: NewsFiltersProps) {
   }
 
   return (
-    <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-        <div className="space-y-2 min-w-[200px]">
-          <label className="text-xs font-medium text-muted-foreground">Categoría</label>
+    <div className="mb-8">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-[250px,250px] gap-6 max-w-[520px] mx-auto">
+        <div>
           <Select value={selectedCategory} onValueChange={handleCategoryChange}>
-            <SelectTrigger>
+            <SelectTrigger className="h-11 text-base">
               <SelectValue placeholder="Todas las categorías" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Todas las categorías</SelectItem>
+              <SelectItem value="all" className="text-base">
+                Todas las categorías
+              </SelectItem>
               {categories.map((category) => (
-                <SelectItem key={category} value={category}>
+                <SelectItem key={category} value={category} className="text-base">
                   {category}
                 </SelectItem>
               ))}
@@ -54,19 +55,18 @@ export function NewsFilters({ categories, onFilterChange }: NewsFiltersProps) {
           </Select>
         </div>
 
-        <div className="space-y-2 min-w-[200px]">
-          <label className="text-xs font-medium text-muted-foreground">Fecha</label>
+        <div>
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="w-full justify-start text-left font-normal"
+                className="w-full h-11 justify-start text-left font-normal text-base bg-white/50 hover:bg-white/80 transition-colors"
               >
-                <CalendarIcon className="mr-2 h-4 w-4" />
+                <CalendarIcon className="mr-3 h-5 w-5 text-muted-foreground/70" />
                 {selectedDate ? (
                   format(selectedDate, 'PPP', { locale: es })
                 ) : (
-                  <span>Seleccionar fecha</span>
+                  <span className="text-muted-foreground/70">Seleccionar fecha</span>
                 )}
               </Button>
             </PopoverTrigger>
@@ -77,6 +77,7 @@ export function NewsFilters({ categories, onFilterChange }: NewsFiltersProps) {
                 onSelect={handleDateChange}
                 initialFocus
                 locale={es}
+                className="rounded-md border shadow-md"
               />
             </PopoverContent>
           </Popover>
@@ -84,18 +85,20 @@ export function NewsFilters({ categories, onFilterChange }: NewsFiltersProps) {
       </div>
 
       {(selectedCategory !== 'all' || selectedDate) && (
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => {
-            setSelectedCategory('all')
-            setSelectedDate(undefined)
-            onFilterChange({ category: '', date: '' })
-          }}
-          className="ml-auto"
-        >
-          <span className="text-muted-foreground">Limpiar filtros</span>
-        </Button>
+        <div className="flex justify-center mt-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              setSelectedCategory('all')
+              setSelectedDate(undefined)
+              onFilterChange({ category: '', date: '' })
+            }}
+            className="hover:bg-white/50 transition-colors"
+          >
+            <span className="text-muted-foreground/90">Limpiar filtros</span>
+          </Button>
+        </div>
       )}
     </div>
   )
