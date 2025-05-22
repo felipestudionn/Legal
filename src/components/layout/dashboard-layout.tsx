@@ -15,14 +15,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       </header>
       <main className="container py-12 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 max-w-7xl mx-auto">
-          <div className="space-y-4 text-center max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold tracking-tight gradient-text sm:text-5xl">
-              Noticias del sector
-            </h2>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Mantente al día con las últimas noticias del sector legal y de las telecomunicaciones en España.
-            </p>
-          </div>
+          <p className="text-xl text-muted-foreground leading-relaxed text-center">
+            Mantente al día con las últimas noticias del sector legal y de las telecomunicaciones en España.
+          </p>
           {children}
         </div>
       </main>
