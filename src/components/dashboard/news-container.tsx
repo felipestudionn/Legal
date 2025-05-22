@@ -41,9 +41,19 @@ export function NewsContainer() {
     try {
       const response = await fetch(`${API_URL}/news`)
       
-      if (response.status === 503 || response.status === 504 || response.status === 404) {
+      if (response.status === 503 || response.status === 504) {
         // Servidor en modo sleep o iniciando
         setIsWakingUp(true)
+        if (retryCount < MAX_RETRIES) {
+          setTimeout(() => {
+            setRetryCount(prev => prev + 1)
+            fetchNewsWithRetry(category, date)
+          }, RETRY_DELAY)
+          return
+        }
+      } else if (response.status === 404) {
+        // Error específico del scraper
+        setError('Error al obtener noticias de algunas fuentes. Reintentando...')
         if (retryCount < MAX_RETRIES) {
           setTimeout(() => {
             setRetryCount(prev => prev + 1)
