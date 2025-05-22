@@ -105,10 +105,6 @@ export function NewsContainer() {
   return (
     <div className="space-y-8">
       <div className="container mx-auto px-4">
-        <h1 className="text-2xl font-bold mb-8">Noticias del sector</h1>
-        <p className="text-gray-600 mb-8">
-          Mantente al día con las últimas noticias del sector legal y de las telecomunicaciones en España.
-        </p>
         
         <div className="mb-8">
           <NewsFilters 
