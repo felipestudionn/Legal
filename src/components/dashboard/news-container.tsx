@@ -1,64 +1,84 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { NewsFilters } from '@/components/dashboard/news-filters'
 import { NewsGrid } from '@/components/dashboard/news-grid'
-import { NEWS_CATEGORIES } from '@/lib/constants'
 import { type News } from '@/lib/types'
 
-const initialNews: News[] = [
-  {
-    id: '1',
-    title: 'Nueva regulación europea sobre IA',
-    content: 'La UE aprueba una nueva normativa sobre Inteligencia Artificial que afectará al sector tecnológico...',
-    date: '2025-05-22',
-    category: 'Legal',
-    url: 'https://example.com/noticia1'
-  },
-  {
-    id: '2',
-    title: 'Telefónica amplía su red 5G',
-    content: 'Telefónica ha anunciado la expansión de su red 5G cumpliendo con la nueva normativa...',
-    date: '2025-05-21',
-    category: 'Infraestructura',
-    url: 'https://example.com/noticia2'
-  },
-  {
-    id: '3',
-    title: 'Nuevas directrices sobre protección de datos',
-    content: 'La AEPD publica nuevas directrices sobre el tratamiento de datos en servicios de telecomunicaciones...',
-    date: '2025-05-20',
-    category: 'Legal',
-    url: 'https://example.com/noticia3'
-  }
-]
+const API_URL = 'https://legal-zilq.onrender.com'
 
 export function NewsContainer() {
-  const [filteredNews, setFilteredNews] = useState(initialNews)
+  const [news, setNews] = useState<News[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [categories, setCategories] = useState<string[]>([])
+
+  // Función para obtener las noticias
+  const fetchNews = async (category?: string, date?: string) => {
+    setLoading(true)
+    setError('')
+    try {
+      const response = await fetch(`${API_URL}/news`)
+      if (!response.ok) throw new Error('Error al cargar las noticias')
+      
+      const data = await response.json()
+      let filteredNews = data.news
+
+      // Aplicar filtros en el cliente
+      if (category) {
+        filteredNews = filteredNews.filter((news: News) => news.category === category)
+      }
+      if (date) {
+        filteredNews = filteredNews.filter((news: News) => {
+          const newsDate = new Date(news.date).toISOString().split('T')[0]
+          return newsDate === date
+        })
+      }
+
+      setNews(filteredNews)
+      
+      // Extraer categorías únicas de las noticias
+      const uniqueCategories = Array.from(new Set(data.news.map((news: News) => news.category))) as string[]
+      setCategories(uniqueCategories)
+    } catch (err) {
+      setError('Error al cargar las noticias. Por favor, intenta más tarde.')
+      console.error('Error fetching news:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Cargar noticias al montar el componente
+  useEffect(() => {
+    fetchNews()
+  }, [])
 
   const handleFilterChange = (filters: { category: string; date: string }) => {
-    let filtered = [...initialNews]
-    if (filters.category) {
-      filtered = filtered.filter(news => news.category === filters.category)
-    }
-    if (filters.date) {
-      filtered = filtered.filter(news => {
-        const newsDate = new Date(news.date).toISOString().split('T')[0]
-        return newsDate === filters.date
-      })
-    }
-    setFilteredNews(filtered)
+    fetchNews(filters.category, filters.date)
   }
 
   return (
     <div className="space-y-8">
       <div>
         <NewsFilters 
-          categories={Array.from(new Set(NEWS_CATEGORIES))}
+          categories={categories}
           onFilterChange={handleFilterChange}
         />
       </div>
-      <NewsGrid news={filteredNews} />
+      
+      {error && (
+        <div className="text-center py-4">
+          <p className="text-red-500">{error}</p>
+        </div>
+      )}
+      
+      {loading ? (
+        <div className="text-center py-8">
+          <p className="text-muted-foreground">Cargando noticias...</p>
+        </div>
+      ) : (
+        <NewsGrid news={news} />
+      )}
     </div>
   )
 }
