@@ -5,7 +5,7 @@ import { NewsFilters } from '@/components/dashboard/news-filters'
 import { NewsGrid } from '@/components/dashboard/news-grid'
 import { type News } from '@/lib/types'
 
-const API_URL = 'https://legal-zilq.onrender.com/api'
+const API_URL = 'https://legal-news-api.onrender.com'
 const MAX_RETRIES = 3
 const RETRY_DELAY = 10000 // 10 segundos
 
