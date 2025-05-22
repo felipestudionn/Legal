@@ -5,7 +5,7 @@ import { NewsFilters } from '@/components/dashboard/news-filters'
 import { NewsGrid } from '@/components/dashboard/news-grid'
 import { type News } from '@/lib/types'
 
-const API_URL = 'https://legal-zilq.onrender.com'
+const API_URL = 'https://legal-zilq.onrender.com/api'
 const MAX_RETRIES = 3
 const RETRY_DELAY = 10000 // 10 segundos
 
@@ -40,8 +40,9 @@ export function NewsContainer() {
   const fetchNewsWithRetry = useCallback(async (category?: string, date?: string) => {
     try {
       const response = await fetch(`${API_URL}/news`)
+      console.log('API Response:', response.status, await response.text())
       
-      if (response.status === 503 || response.status === 504) {
+      if (response.status === 503 || response.status === 504 || response.status === 404) {
         // Servidor en modo sleep o iniciando
         setIsWakingUp(true)
         if (retryCount < MAX_RETRIES) {
