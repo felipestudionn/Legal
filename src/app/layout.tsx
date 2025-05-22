@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'News Dashboard',
-  description: 'Noticias del sector de las telecomunicaciones en España',
+  title: 'TIC & Legal',
+  description: 'Noticias del sector legal y de las telecomunicaciones en España',
 }
 
 export default function RootLayout({

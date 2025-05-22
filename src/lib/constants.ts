@@ -1,7 +1,9 @@
 export const NEWS_CATEGORIES = [
+  'Legal',
   'Infraestructura',
+  'Regulación',
   'Empresas',
   'Innovación',
-  'Regulación',
-  'Servicios'
+  'Compliance',
+  'Protección de Datos'
 ]

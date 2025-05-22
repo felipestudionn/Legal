@@ -9,26 +9,26 @@ import { type News } from '@/lib/types'
 const initialNews: News[] = [
   {
     id: '1',
-    title: 'Telefónica amplía su red 5G',
-    content: 'Telefónica ha anunciado la expansión de su red 5G a más ciudades españolas...',
+    title: 'Nueva regulación europea sobre IA',
+    content: 'La UE aprueba una nueva normativa sobre Inteligencia Artificial que afectará al sector tecnológico...',
     date: '2025-05-22',
-    category: 'Infraestructura',
+    category: 'Legal',
     url: 'https://example.com/noticia1'
   },
   {
     id: '2',
-    title: 'Orange y MásMóvil finalizan su fusión',
-    content: 'La fusión entre Orange y MásMóvil ha sido completada después de recibir todas las aprobaciones...',
+    title: 'Telefónica amplía su red 5G',
+    content: 'Telefónica ha anunciado la expansión de su red 5G cumpliendo con la nueva normativa...',
     date: '2025-05-21',
-    category: 'Empresas',
+    category: 'Infraestructura',
     url: 'https://example.com/noticia2'
   },
   {
     id: '3',
-    title: 'Vodafone lanza nuevo servicio IoT',
-    content: 'Vodafone ha presentado su nueva plataforma de IoT para empresas...',
+    title: 'Nuevas directrices sobre protección de datos',
+    content: 'La AEPD publica nuevas directrices sobre el tratamiento de datos en servicios de telecomunicaciones...',
     date: '2025-05-20',
-    category: 'Innovación',
+    category: 'Legal',
     url: 'https://example.com/noticia3'
   }
 ]
