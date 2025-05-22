@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { NewsFilters } from './news-filters'
-import { NewsGrid } from './news-grid'
+import { NewsFilters } from '@/components/dashboard/news-filters'
+import { NewsGrid } from '@/components/dashboard/news-grid'
 import { NEWS_CATEGORIES } from '@/lib/constants'
 import { type News } from '@/lib/types'
 
