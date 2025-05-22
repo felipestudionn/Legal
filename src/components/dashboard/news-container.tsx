@@ -95,6 +95,8 @@ export function NewsContainer() {
 
   const handleFilterChange = useCallback((filters: { category: string; date: string }) => {
     setLoading(true)
+    setIsWakingUp(true) // Reiniciar el estado de wake up al cambiar filtros
+    setRetryCount(0) // Reiniciar el contador de intentos
     fetchNewsWithRetry(filters.category, filters.date)
   }, [fetchNewsWithRetry])
 
