@@ -117,12 +117,13 @@ export function NewsContainer() {
         
         <div className="min-h-[200px]">
           {isWakingUp ? (
-            <div className="text-center py-8 bg-amber-50 rounded-lg border border-amber-200">
-              <p className="text-amber-600 font-medium">
+            <div className="text-center py-12 px-4 bg-gradient-to-b from-amber-50/50 to-amber-100/50 rounded-xl border border-amber-200/50 shadow-sm">
+              <div className="animate-spin rounded-full h-8 w-8 border-[3px] border-amber-200 border-t-amber-500 mx-auto mb-4"></div>
+              <p className="text-amber-700 font-medium text-lg mb-2">
                 Despertando el servidor... 
                 {retryCount > 0 && ` (Intento ${retryCount} de ${MAX_RETRIES})`}
               </p>
-              <p className="text-amber-500 text-sm mt-2">
+              <p className="text-amber-600/80 text-sm">
                 El servidor está iniciándose, esto puede tomar unos segundos...
               </p>
             </div>

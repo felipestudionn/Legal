@@ -36,10 +36,10 @@ export function NewsFilters({ categories, onFilterChange }: NewsFiltersProps) {
 
   return (
     <div className="mb-8">
-      <div className="grid sm:grid-cols-2 lg:grid-cols-[250px,250px] gap-6 max-w-[520px] mx-auto">
-        <div>
+      <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="w-full sm:w-64">
           <Select value={selectedCategory} onValueChange={handleCategoryChange}>
-            <SelectTrigger className="h-11 text-base">
+            <SelectTrigger className="h-10 bg-white shadow-sm hover:bg-gray-50 transition-colors">
               <SelectValue placeholder="Todas las categorías" />
             </SelectTrigger>
             <SelectContent>

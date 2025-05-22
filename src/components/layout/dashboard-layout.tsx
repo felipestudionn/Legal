@@ -2,14 +2,14 @@
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-50 w-full glass-effect">
-        <div className="container flex h-20 items-center justify-between">
-          <h1 className="text-2xl font-bold gradient-text tracking-tight">TIC & Legal</h1>
-          <nav className="hidden md:flex space-x-6">
-            <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Inicio</a>
-            <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Archivo</a>
-            <a href="#" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">Sobre Nosotros</a>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <header className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-sm border-b">
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <h1 className="text-2xl font-bold text-blue-600">TIC & Legal</h1>
+          <nav className="flex space-x-6">
+            <a href="#" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Inicio</a>
+            <a href="#" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Archivo</a>
+            <a href="#" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors">Sobre Nosotros</a>
           </nav>
         </div>
       </header>
