@@ -40,7 +40,6 @@ export function NewsContainer() {
   const fetchNewsWithRetry = useCallback(async (category?: string, date?: string) => {
     try {
       const response = await fetch(`${API_URL}/news`)
-      console.log('API Response:', response.status, await response.text())
       
       if (response.status === 503 || response.status === 504 || response.status === 404) {
         // Servidor en modo sleep o iniciando
