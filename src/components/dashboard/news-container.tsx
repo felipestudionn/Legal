@@ -104,35 +104,44 @@ export function NewsContainer() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <NewsFilters 
-          categories={categories}
-          onFilterChange={handleFilterChange}
-        />
+      <div className="container mx-auto px-4">
+        <h1 className="text-2xl font-bold mb-8">Noticias del sector</h1>
+        <p className="text-gray-600 mb-8">
+          Mantente al día con las últimas noticias del sector legal y de las telecomunicaciones en España.
+        </p>
+        
+        <div className="mb-8">
+          <NewsFilters 
+            categories={categories}
+            onFilterChange={handleFilterChange}
+          />
+        </div>
+        
+        <div className="min-h-[200px]">
+          {isWakingUp ? (
+            <div className="text-center py-8 bg-amber-50 rounded-lg border border-amber-200">
+              <p className="text-amber-600 font-medium">
+                Despertando el servidor... 
+                {retryCount > 0 && ` (Intento ${retryCount} de ${MAX_RETRIES})`}
+              </p>
+              <p className="text-amber-500 text-sm mt-2">
+                El servidor está iniciándose, esto puede tomar unos segundos...
+              </p>
+            </div>
+          ) : error ? (
+            <div className="text-center py-8 bg-red-50 rounded-lg border border-red-200">
+              <p className="text-red-600">{error}</p>
+            </div>
+          ) : loading ? (
+            <div className="text-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-4"></div>
+              <p className="text-gray-600">Cargando noticias...</p>
+            </div>
+          ) : (
+            <NewsGrid news={news} />
+          )}
+        </div>
       </div>
-      
-      {error && (
-        <div className="text-center py-4">
-          <p className="text-red-500">{error}</p>
-        </div>
-      )}
-      
-      {isWakingUp && (
-        <div className="text-center py-4">
-          <p className="text-amber-500">
-            Despertando el servidor... 
-            {retryCount > 0 && `(Intento ${retryCount} de ${MAX_RETRIES})`}
-          </p>
-        </div>
-      )}
-      
-      {loading ? (
-        <div className="text-center py-8">
-          <p className="text-muted-foreground">Cargando noticias...</p>
-        </div>
-      ) : (
-        <NewsGrid news={news} />
-      )}
     </div>
   )
 }
