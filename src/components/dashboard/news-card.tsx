@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CalendarIcon } from 'lucide-react'
 import { type News } from '@/lib/types'
+import { capitalizeFirstLetter, cn } from '@/lib/utils'
 
 interface NewsCardProps {
   news: News
@@ -16,7 +17,14 @@ export function NewsCard({ news }: NewsCardProps) {
         <div className="flex items-center gap-3 mb-4">
           <Badge 
             variant="outline" 
-            className="bg-primary/5 text-primary hover:bg-primary/10 transition-colors px-3 py-1 rounded-full text-xs font-medium tracking-wide"
+            className={cn(
+              'px-3 py-1 rounded-full text-xs font-medium tracking-wide transition-colors',
+              news.category === 'Regulación' 
+                ? 'bg-red-100 text-red-700 hover:bg-red-200'
+                : news.category === 'Telecomunicaciones'
+                  ? 'bg-blue-100 text-blue-700 hover:bg-blue-200'
+                  : 'bg-primary/5 text-primary hover:bg-primary/10'
+            )}
           >
             {news.category}
           </Badge>
@@ -32,7 +40,7 @@ export function NewsCard({ news }: NewsCardProps) {
             rel="noopener noreferrer" 
             className="hover:underline decoration-primary decoration-2 underline-offset-4"
           >
-            {news.title}
+            {capitalizeFirstLetter(news.title)}
           </a>
         </CardTitle>
         <p className="mt-3 text-muted-foreground/90 text-sm line-clamp-2">
