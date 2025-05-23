@@ -5,7 +5,7 @@ import { NewsFilters } from '@/components/dashboard/news-filters'
 import { NewsGrid } from '@/components/dashboard/news-grid'
 import { type News } from '@/lib/types'
 
-const API_URL = 'https://legal-news-api.onrender.com'
+const API_URL = 'http://localhost:10000'
 const MAX_RETRIES = 3
 const RETRY_DELAY = 10000 // 10 segundos
 
@@ -39,10 +39,22 @@ export function NewsContainer() {
 
   const fetchNewsWithRetry = useCallback(async (category?: string, date?: string) => {
     try {
-      const response = await fetch(`${API_URL}/news`)
+      console.log('Fetching news from:', `${API_URL}/news`)
+      const response = await fetch(`${API_URL}/news`, {
+        method: 'GET',
+        mode: 'cors',
+        credentials: 'omit',
+        headers: {
+          'Accept': 'application/json',
+        },
+      })
+      
+      console.log('Response status:', response.status)
+      const contentType = response.headers.get('content-type')
+      console.log('Content-Type:', contentType)
       
       if (response.status === 503 || response.status === 504) {
-        // Servidor en modo sleep o iniciando
+        console.log('Server is sleeping or starting up')
         setIsWakingUp(true)
         if (retryCount < MAX_RETRIES) {
           setTimeout(() => {
@@ -52,7 +64,7 @@ export function NewsContainer() {
           return
         }
       } else if (response.status === 404) {
-        // Error específico del scraper
+        console.log('Scraper error detected')
         setError('Error al obtener noticias de algunas fuentes. Reintentando...')
         if (retryCount < MAX_RETRIES) {
           setTimeout(() => {
@@ -63,7 +75,11 @@ export function NewsContainer() {
         }
       }
       
-      if (!response.ok) throw new Error('Error al cargar las noticias')
+      if (!response.ok) {
+        const errorText = await response.text()
+        console.error('Response not OK:', errorText)
+        throw new Error(`Error al cargar las noticias: ${response.status} ${errorText}`)
+      }
       
       const data = await response.json()
       let filteredNews = data.news

@@ -5,4 +5,5 @@ export interface News {
   date: string
   category: string
   url: string
+  source: string
 }
