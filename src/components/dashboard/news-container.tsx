@@ -17,7 +17,8 @@ const fallbackNews: News[] = [
     content: 'La UE aprueba una nueva normativa sobre Inteligencia Artificial que afectará al sector tecnológico y legal.',
     date: '2025-05-22',
     category: 'Legal',
-    url: 'https://example.com/noticia1'
+    url: 'https://example.com/noticia1',
+    source: 'Ejemplo'
   },
   {
     id: '2',
@@ -25,7 +26,8 @@ const fallbackNews: News[] = [
     content: 'El Comité Europeo de Protección de Datos publica nuevas directrices sobre el cumplimiento del RGPD en servicios cloud.',
     date: '2025-05-21',
     category: 'Protección de Datos',
-    url: 'https://example.com/noticia2'
+    url: 'https://example.com/noticia2',
+    source: 'Ejemplo'
   }
 ]
 
